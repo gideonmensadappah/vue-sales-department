@@ -1,28 +1,62 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CustomersTable v-bind:customers="customers" />
+    <div class="add-customer">
+      <input v-if="isNewCustomer" placeholder="fullName" />
+      <input placeholder="phone" v-if="isNewCustomer" />
+      <input placeholder="city" v-if="isNewCustomer" />
+      <button @click="newCustomer">Add Customer</button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+/**
+ 
+ * dispatch add customer
+ */
+
+import CustomersTable from "./components/CustomersTable";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      isNewCustomer: false,
+      customers: [
+        {
+          id: 1,
+          fullName: "gideon mensa",
+          phone: "05430434943",
+          city: "Tel-aviv",
+        },
+        { id: 2, fullName: "dan mensa", phone: "05423454943", city: "ashdod" },
+        { id: 3, fullName: "yosef haom", phone: "0903212321", city: "Tel-hai" },
+        { id: 4, fullName: "dan sad", phone: "05425764943", city: "ashdod" },
+      ],
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    CustomersTable,
+  },
+  methods: {
+    newCustomer() {
+      if (this.isNewCustomer) {
+        alert("adding new Customer!");
+        this.isNewCustomer = !this.isNewCustomer;
+      } else {
+        this.isNewCustomer = !this.isNewCustomer;
+      }
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.add-customer {
+  padding: 5px;
+}
+input {
+  margin: 4px;
 }
 </style>
