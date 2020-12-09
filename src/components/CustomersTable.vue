@@ -6,8 +6,12 @@
       <div>City</div>
       <div>Actions</div>
     </div>
-    <div v-for="customer in customers" :key="customer.id">
-      <Customer v-bind:customer="customer" />
+    <div v-for="customer in customers" :key="customer._id">
+      <Customer
+        @edit-customer="editCustomer"
+        @deleted-customer="updatedCustomersList"
+        v-bind:customer="customer"
+      />
     </div>
   </div>
 </template>
@@ -19,6 +23,14 @@ export default {
   props: ["customers"],
   components: {
     Customer,
+  },
+  methods: {
+    updatedCustomersList(customerId) {
+      this.$emit("deleted-customer", customerId);
+    },
+    editCustomer(value) {
+      this.$emit("edit-customer", value);
+    },
   },
 };
 </script>
